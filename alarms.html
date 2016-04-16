@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Alarms</title>
+    <meta name="viewport" content="initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+    $.post("https://getupp.rapidapi.io/list-alarms", {}, function(data, status) {
+      var alarmdata = JSON.parse(data);
+      console.log(alarmdata);
+      $("#panel").append('<table id="elements" width="100\%" border="0" class="elements"></table>');//<tr><th>Name</th><th>Time</th><th></th></tr>');
+      $.each(alarmdata, function(index, value) {
+        if(value.hours != "undefined") {
+          var timestr = value.hours + ":" + value.minutes;
+          $("#elements").append("<tr height='100'><td>" + value.name + "</td><td>" + timestr + '</td><td><img src="alarm.png" width="30" height="30" /></td></tr>');
+        }
+      });
+    });
+    function toggleFullScreen() {
+      var doc = window.document;
+      var docEl = doc.documentElement;
+
+      var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+      var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+      if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+        requestFullScreen.call(docEl);
+      }
+      else {
+        cancelFullScreen.call(doc);
+      }
+    }
+    </script>
+    <link rel="stylesheet" type="text/css" href="table.css">
+  </head>
+  <body>
+    <div id="cssmenu">
+      <table width="100%" class="menu"><tr height="15 0">
+        <td><a><img src="menu.png" width="30" height="30" align="middle"/></a></td>
+        <td onclick="toggleFullScreen()"><a><img src="settings.png" width="30" height="30" align="middle"/></a></td>
+        <td class="last"><a href="add.html"><img src="plus.png" width="30" height="30"/></a></td>
+      </table>
+    </div>
+    <div id="panel">
+    </div>
+  </body>
+</html>

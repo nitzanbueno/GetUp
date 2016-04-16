@@ -1,0 +1,71 @@
+<!-- key = AIzaSyB4q7qazJha-z343SJkp8iOWieQrqaJ2vY -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add an alarm</title>
+    <meta name="viewport" content="initial-scale=1, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body>
+    <div id="cssmenu">
+      <table width="100%" class="menu"><tr height="15">
+        <td><a href="alarms.html"><img src="menu.png" width="20" height="20" align="middle"/></a></td>
+        <td><a><img src="settings.png" width="20" height="20" align="middle"/></a></td>
+        <td class="last"><a href="add.html"><img src="plus.png" width="20" height="20"/></a></td>
+      </table>
+    </div>
+    <div id="locationField">
+      <table width="100%" class="elements">
+      <tr><td>Where are you leaving from?</td><td>
+      <input id="origin" autocomplete="off" placeholder="Enter your address"
+             onFocus="geolocate()" type="text"/></td></tr>
+      <tr><td>Where do you want to go?</td><td>
+      <input id="destination" autocomplete="off" placeholder="Enter your destination" type="text"/></td> </tr>
+      <tr><td>How are you getting there?</td><td>
+      <select size="10" id="travelMode" onChange="setTravMode()">
+        <option value="1">Driving</option>
+        <option value="2">Bicycling</option>
+        <option value="3">Walking</option>
+        <option value="4">Public Transit</option>
+      </select></td></tr>
+      <script>
+      function setTravMode(){
+        var k = $("#travelMode").val();
+        if(k == "1"){
+          travMode = google.maps.TravelMode.DRIVING;
+        }
+        else if (k == "2") {
+          travMode = google.maps.TravelMode.BICYCLING;
+        }
+        else if (k == "3") {
+          travMode = google.maps.TravelMode.WALKING;
+        }
+        else if (k == "4") {
+          travMode = google.maps.TravelMode.TRANSIT;
+        }
+      }
+      </script>
+      <tr><td>When do you want to be there?</td><td>
+      <input class="time" id="time" autocomplete="off" type="time" name="time"></td></tr>
+      <tr><td>What should we call this alarm?</td><td><input type="text" id="name"></td></tr>
+    </table>
+    </div><br/>
+    <div align="center">
+      <button onclick="estimateWakeUpTime()">Estimate wake-up time</button>
+    </div>
+    <div id="duration"></div>
+
+    <br/>
+    <!-- <button onclick="toggleFullScreen();">Fullscreen!</button> -->
+
+
+    <script src="directions.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4q7qazJha-z343SJkp8iOWieQrqaJ2vY&libraries=places&callback=initAutocomplete"
+        async defer></script>
+  </body>
+</html>
